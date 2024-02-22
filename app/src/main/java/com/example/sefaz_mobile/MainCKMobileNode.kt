@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.res.AssetManager
 import android.widget.Toast
 import ckafka.data.SwapData
-import com.fasterxml.jackson.databind.node.ObjectNode
+//import com.fasterxml.jackson.databind.node.ObjectNode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,17 +26,17 @@ class MainCKMobileNode(private val activity: Activity) : CKMobileNode() {
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     private val assetManager: AssetManager = activity.assets
 
-
-//    init{
-//        getProperties()
-//    }
-
-    fun fazTudo() {
+    fun fazTudo(message: String, typeMessage: String, sender: String) {
         coroutineScope.launch {
-            // Continue with other background tasks
-           sendUnicastMessage("01111111-1111-1111-1111-111111111117", "Olá")
+            if(typeMessage == "groupcast"){
+                sendGroupcastMessage(sender, message)
+            }
+            if(typeMessage == "unicast"){
+                sendUnicastMessage(sender, message)
+            }
         }
     }
+
 
     private fun sendMessageToPN(messageText: String) {
         val messageBytes: ByteArray = messageText.toByteArray(Charsets.UTF_8)
@@ -145,29 +145,6 @@ class MainCKMobileNode(private val activity: Activity) : CKMobileNode() {
         // Use withContext(Dispatchers.Main) if you need to update UI elements from a coroutine
         coroutineScope.launch(Dispatchers.Main) {
             Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun newLocation(messageCounter: Int?): SwapData? {
-        val location: ObjectNode = objectMapper.createObjectNode()
-        val stepX = (-43.23232376069340 - -43.18559736525978) / 10
-        val stepY = (-22.978883470478085 - -22.936826006961283) / 10
-        val amountX = -43.18559736525978 + stepX * stepNumber
-        val amountY = -22.936826006961283 + stepY * stepNumber
-        stepNumber = (stepNumber + 1) % 10
-        location.put("ID", this.mnID.toString())
-        location.put("messageCount", messageCounter)
-        location.put("longitude", amountX)
-        location.put("latitude", amountY)
-        location.put("date", Date().toString())
-        return try {
-            val locationData = SwapData()
-            locationData.setContext(location)
-            locationData.setDuration(60)
-            locationData
-        } catch (e: Exception) {
-            logger.error("Location Swap Data could not be created", e)
-            null
         }
     }
 }

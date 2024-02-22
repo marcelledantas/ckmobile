@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+       <!-- First Text View above the input field -->
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Envio de mensagem Nó Movel"
+        android:textSize="16dp"
+        android:textColor="@android:color/black"
+        android:padding="50dp"/>
+
+    <Spinner
+        android:id="@+id/message_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- EditText for user input -->
+    <EditText
+        android:id="@+id/editTextUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite UUID do nó móvel"
+        android:padding="16dp" />
+
+    <EditText
+        android:id="@+id/editTextUserInput1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite a mensagem a ser enviada"
+        android:padding="16dp" />
+
+    <!-- Button to submit the input -->
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enviar"
+        android:onClick="onSubmitButtonClick"
+        />
+
+</LinearLayout>
