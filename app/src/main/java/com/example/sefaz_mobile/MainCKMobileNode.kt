@@ -31,7 +31,7 @@ class MainCKMobileNode(private val activity: Activity) : CKMobileNode() {
             if(typeMessage == "groupcast"){
                 sendGroupcastMessage(sender, message)
             }
-            if(typeMessage == "unicast"){
+            else if(typeMessage == "unicast"){
                 sendUnicastMessage(sender, message)
             }
         }
